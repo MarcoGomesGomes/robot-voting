@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Coding of a Social Robot</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ffe100;
+      color: #000;
+    }
+
+    header {
+      padding: 20px 40px;
+      font-weight: bold;
+      font-size: 24px;
+    }
+
+    main {
+      display: flex;
+      justify-content: space-between;
+      padding: 40px;
+      flex-wrap: wrap;
+    }
+
+    .intro {
+      max-width: 50%;
+      min-width: 300px;
+    }
+
+    .intro h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .intro p {
+      font-size: 18px;
+      max-width: 500px;
+    }
+
+    .robot-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .robot {
+      background: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      width: 300px;
+    }
+
+    .robot img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .robot button {
+      margin-top: 10px;
+      background: #e6007e;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .votes {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<header>🤖 Coding of a Social Robot</header>
+
+<main>
+  <section class="intro">
+    <h1>Design the Future of Domestic Robotics</h1>
+    <p>This project explores new design proposals for a general-purpose social home robot that enhances domestic well-being and mental health post-pandemic. These robots are companions designed for natural human-robot interaction and shaped through aesthetic coding to foster trust and acceptance.</p>
+  </section>
+
+  <section class="robot-grid">
+    <div class="robot">
+      <img src="Propostal 1.png" alt="Proposal 1">
+      <p><strong>Proposal 1:</strong> A compact, playful semi-humanoid robot with expressive eyes, designed to emotionally support and assist with simple domestic tasks.</p>
+      <button onclick="vote('p1')">Vote</button>
+    </div>
+    <div class="robot">
+      <img src="Propostal 2.png" alt="Proposal 2">
+      <p><strong>Proposal 2:</strong> A functional and friendly service bot with a cylindrical body, ideal for elder care and information assistance in a home setting.</p>
+      <button onclick="vote('p2')">Vote</button>
+    </div>
+    <div class="robot">
+      <img src="Propostal 3.png" alt="Proposal 3">
+      <p><strong>Proposal 3:</strong> A sleek humanoid helper bot, designed for advanced interaction and physical assistance with a futuristic yet approachable presence.</p>
+      <button onclick="vote('p3')">Vote</button>
+    </div>
+  </section>
+</main>
+
+<script>
+    const VOTE_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwCsS4M-o2mt_-kbm6tr0RRDNOX2NfVmrVnCawQqZCSq4Wi_nvaMX7kujn86TqiJUo/exec';
+  
+    function vote(id) {
+      fetch(VOTE_ENDPOINT, {
+        method: 'POST',
+        body: JSON.stringify({ proposal: id }),
+        headers: { 'Content-Type': 'application/json' }
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log("🛠️ Server response:", data); // ← This helps you see what's returned
+        if (data.success) {
+          alert("✅ Your vote was recorded for " + id.toUpperCase());
+        } else {
+          alert("⚠️ Vote not recorded: " + data.message);
+        }
+      })
+      .catch(err => {
+        alert("❌ Could not send vote. Check your connection or permissions.");
+        console.error(err);
+      });
+    }
+  </script>
+  
+
+</body>
+</html>
